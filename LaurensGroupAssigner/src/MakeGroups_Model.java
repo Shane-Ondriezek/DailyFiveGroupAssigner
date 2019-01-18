@@ -38,100 +38,6 @@ public class MakeGroups_Model {
                 listenToReading);
 
         SaveGroups_Model.saveGroups(secondRotation);
-        
-        /*
-        //random int in [0,24] for 25 students
-        //Random rand = new Random();
-        //each student gets a number as a key for inserting into hashmap
-        //so for 25 students, i.e. numStus==25, stuNum is in [0,24]
-        int stuNum = rand.nextInt(numStus);
-
-        //create the readToSelf group with half ( or half-1) of the students
-        for (int i = 0; i < numStus / 2; ) {
-            //when a name is added to readToSelf, 
-            //set it to null to prevent reuse
-            if (names.get(stuNum) != null) {
-                readToSelf.put(stuNum, names.get(stuNum));               
-                names.set(stuNum, null);  
-                i++;
-            }
-            stuNum = rand.nextInt(25);                         
-        }
-
-        int remStus;
-        if (numStus % 2 == 0) {
-            remStus = numStus/2;
-        } else {
-            remStus = numStus/2 + 1;
-        }
-        
-        //readToSomeone is Activity 0
-        //workOnWriting is Activity 1
-        //wordWork is Activity 2
-        //listenToReading is Activity 3
-        //4 activities, so generate a random int in [0,3]
-        int activityNum = rand.nextInt(4);
-        String n = names.get(stuNum);
-        int maxInGroup = 6; //maximum number of students allowed in a group
-        
-        //create the remaining groups (excluding readToSelf)
-        for (int i = 0; i < remStus; ) {
-            //if the name hasn't already been used, add it to a group
-            if (n != null) {
-            switch (activityNum) {
-                case 0:
-                    if ((!readToSomeone.containsKey(stuNum)) &&
-                            readToSomeone.size() < maxInGroup) {
-                        readToSomeone.put(stuNum, n);
-                        names.set(stuNum, null);
-                        i++;                       
-                    };
-                    break;
-                case 1:
-                    if ((!workOnWriting.containsKey(stuNum)) &&
-                            workOnWriting.size() < maxInGroup) {
-                        workOnWriting.put(stuNum, n);
-                        names.set(stuNum, null);
-                        i++;
-                    };
-                    break;
-                case 2:
-                    if ((!wordWork.containsKey(stuNum)) &&
-                            wordWork.size() < maxInGroup) {
-                        wordWork.put(stuNum, n);
-                        names.set(stuNum, null);
-                        i++;
-                    };
-                    break;
-                case 3:
-                    if ((!listenToReading.containsKey(stuNum)) &&
-                            listenToReading.size() < maxInGroup) {
-                        listenToReading.put(stuNum, n);
-                        names.set(stuNum, null);
-                        i++;
-                    };
-                    break;
-                }
-                activityNum = rand.nextInt(4);
-                stuNum = rand.nextInt(25);
-                n = names.get(stuNum);
-            } else {
-                stuNum = rand.nextInt(25);
-                n = names.get(stuNum);
-            }
-
-        }
-        
-        //arraylist to pass so that groups can be saved to a file
-        ArrayList<HashMap> groups = new ArrayList<>();
-        groups.add(readToSelf);
-        groups.add(readToSomeone);
-        groups.add(wordWork);
-        groups.add(workOnWriting);
-        groups.add(listenToReading);
-        
-        SaveGroups_Model.saveGroups(groups);
-         */
     }
 
     private static ArrayList<HashMap> createFirstRotation(
@@ -164,17 +70,6 @@ public class MakeGroups_Model {
 
         ArrayList<HashMap> groupsFirstRotation = new ArrayList<>();
         groupsFirstRotation.add(readToSelf);
-        /*
-        System.out.println("FIRST ROTATION: ");
-        System.out.println("Read To Self: ");
-        Iterator pItr = readToSelf.entrySet().iterator();
-        while (pItr.hasNext()) {
-            HashMap.Entry entry = (HashMap.Entry)pItr.next();
-            int keyNum = (int) entry.getKey();
-            String valStr = (String)entry.getValue();
-            System.out.printf("%d   %s\n", keyNum, valStr);
-        
-        }*/
 
         //now create the remaining groups (excluding readToSelf)
         ArrayList<HashMap> remainingGroups = createRemainingGroups(names,
@@ -205,20 +100,6 @@ public class MakeGroups_Model {
         ArrayList<HashMap> groupsSecondRotation = new ArrayList<>();
         groupsSecondRotation.add(newReadToSelf);
 
-        //System.out.println("Old size: " + readToSelf.size());
-        //System.out.println("New size: " + newReadToSelf.size());
-        /*
-        System.out.println("\nSECOND ROTATION:");
-        System.out.println("New Read to Self Line 218:");
-        Iterator pItr = newReadToSelf.entrySet().iterator();
-        while (pItr.hasNext()) {
-            HashMap.Entry entry = (HashMap.Entry)pItr.next();
-            int keyNum = (int)entry.getKey();
-            String valStr = (String)entry.getValue();
-            System.out.printf("%3d   %s\n", keyNum, valStr);
-        }
-        System.out.println("\n"); */
-
         //move the students in the old readToSelf to their new groups
         //arrayList is needed for createRemainingGroups method
         ArrayList<String> namesForRemainingGroups = new ArrayList<>();
@@ -248,16 +129,6 @@ public class MakeGroups_Model {
         workOnWriting.clear();
         wordWork.clear();
         listenToReading.clear();;
-        /*
-        System.out.println("Read to Self Line 258:");
-        Iterator pItr = readToSelf.entrySet().iterator();
-        while (pItr.hasNext()) {
-            HashMap.Entry entry = (HashMap.Entry)pItr.next();
-            int keyNum = (int)entry.getKey();
-            String valStr = (String)entry.getValue();
-            System.out.printf("%3d   %s\n", keyNum, valStr);
-        }
-        System.out.println("\n"); */
        
         Random rand = new Random();
         int numStus;
@@ -384,58 +255,7 @@ public class MakeGroups_Model {
         remainingGroups.add(workOnWriting);
         remainingGroups.add(wordWork);
         remainingGroups.add(listenToReading);
-        /*
-        System.out.println("Read to Self Line 405:");
-        pItr = readToSelf.entrySet().iterator();
-        while (pItr.hasNext()) {
-            HashMap.Entry entry = (HashMap.Entry)pItr.next();
-            int keyNum = (int)entry.getKey();
-            String valStr = (String)entry.getValue();
-            System.out.printf("%3d   %s\n", keyNum, valStr);
-        }
-        System.out.println("\n"); */
 
-        /*
-        if (rotationNumber == 2) {
-            System.out.println("\nNew Read To Someone");
-            Iterator pItr = readToSomeone.entrySet().iterator();
-            while (pItr.hasNext()) {
-                HashMap.Entry entry = (HashMap.Entry) pItr.next();
-                int keyNum = (int) entry.getKey();
-                String valStr = (String) entry.getValue();
-                System.out.printf("%3d   %s\n", keyNum, valStr);
-            }
-
-            System.out.println("\nNew Work on Writing");
-            pItr = workOnWriting.entrySet().iterator();
-            while (pItr.hasNext()) {
-                HashMap.Entry entry = (HashMap.Entry) pItr.next();
-                int keyNum = (int) entry.getKey();
-                String valStr = (String) entry.getValue();
-                System.out.printf("%3d   %s\n", keyNum, valStr);
-            }
-
-            System.out.println("\nNew Word Work");
-            pItr = wordWork.entrySet().iterator();
-            while (pItr.hasNext()) {
-                HashMap.Entry entry = (HashMap.Entry) pItr.next();
-                int keyNum = (int) entry.getKey();
-                String valStr = (String) entry.getValue();
-                System.out.printf("%3d   %s\n", keyNum, valStr);
-            }
-
-            System.out.println("\nNew Listen to Reading");
-            pItr = listenToReading.entrySet().iterator();
-            while (pItr.hasNext()) {
-                HashMap.Entry entry = (HashMap.Entry) pItr.next();
-                int keyNum = (int) entry.getKey();
-                String valStr = (String) entry.getValue();
-                System.out.printf("%3d   %s\n", keyNum, valStr);
-            }
-        }
-        if (rotationNumber == 2) {
-            System.out.println("\ndone\n");
-        }*/
         return remainingGroups;
     }
 

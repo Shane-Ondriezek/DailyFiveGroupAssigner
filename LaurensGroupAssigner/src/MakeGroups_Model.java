@@ -31,13 +31,19 @@ public class MakeGroups_Model {
                 names, readToSelf, readToSomeone, workOnWriting, wordWork,
                 listenToReading);
         
-        SaveGroups_Model.saveGroups(firstRotation);
+        //boolean for SaveGroups_Model to determine if the rotation being
+        //passed in is the first rotation, and thereby deciding to either 
+        //overwrite the activityGroups.txt file, or to append the 
+        //current rotation to the file
+        boolean isFirstRotation = true;
+        
+        SaveGroups_Model.saveGroups(firstRotation, isFirstRotation);
         
         ArrayList<HashMap> secondRotation = createSecondRotation(
                 names, readToSelf, readToSomeone, workOnWriting, wordWork,
                 listenToReading);
 
-        SaveGroups_Model.saveGroups(secondRotation);
+        SaveGroups_Model.saveGroups(secondRotation, false);
     }
 
     private static ArrayList<HashMap> createFirstRotation(
@@ -171,7 +177,6 @@ public class MakeGroups_Model {
                 (itr.hasNext() || n.equals(names.get(names.size()-1))); ) {
             //if the name hasn't already been used, add it to a group
             if (n != null) {
-                //System.out.println("stuNum: " + stuNum + " I: " + i);
                 switch (activityNum) {
                     case 0:
                         if ((!readToSomeone.containsKey(stuNum))
